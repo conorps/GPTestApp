@@ -49,6 +49,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         this.activity = context;
     }
 
+    /**
+     * Defines the CardView for each item in the list of users
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView userNameView;
@@ -95,6 +98,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     public int getItemCount() {
         return users.size();
     }
+
+    /**
+     * To download the user profile images Asynchronously. This is called from onBindViewHolder
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 

@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         new GetUsers().execute();
     }
 
+    /**
+     * Sets the properties of the recyclerview
+     */
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView");
         mRecyclerView = findViewById(R.id.recyclerview_main);
@@ -51,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(llm);
     }
 
+    /**
+     * Creates an ArrayList of JSONObjects from a JSONArray
+     * @param jsonArray The JSONArray to be turned into an ArrayList
+     * @return an ArrayList of JSONObjects
+     */
     public static ArrayList<JSONObject> getListOfJsonObject(
             JSONArray jsonArray) {
         ArrayList<JSONObject> list = new ArrayList<>();
@@ -97,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
             mProgressDialog.show();
         }
 
+
+        /**
+         * Initiates a call to the api for each page of users and combines the user JSON objects
+         * into a single JSON Array. The array is then returned to onPostExecute
+         * @param Url
+         * @return The JSONArray with all of the user objects
+         */
         @Override
         protected JSONArray doInBackground(String... Url) {
             String result;
@@ -108,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 jsonObject = new JSONObject(result);
                 pages = jsonObject.getInt("total_pages");
                 jsonArray = jsonObject.optJSONArray("data");
-                Log.d(TAG, "JSONARRAY1: " + jsonArray.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -117,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     jsonObject = new JSONObject(result);
                     JSONArray tempJsonArray = jsonObject.optJSONArray("data");
-                    Log.d(TAG, "TEMPJSONARRAY: " + tempJsonArray.toString());
-                    Log.d(TAG, "JSONARRAY: " +jsonArray.toString());
 
                     for(int j=1; j<tempJsonArray.length();j++){
                         jsonArray.put(tempJsonArray.get(j));
@@ -130,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
             return jsonArray;
         }
 
+        /**
+         * Gets the response from the url parameter
+         * @param myurl URL to be used in the request
+         * @return
+         */
         private String downloadUrl(String myurl){
             BufferedReader reader;
             try {
@@ -152,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        /**
+         * This will set the adapter for the recyclerview, which will update the UI
+         * @param result The resulting JSONArray with all of the user objects
+         */
         @Override
         protected void onPostExecute(JSONArray result) {
             mProgressDialog.dismiss();
@@ -159,13 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
             JSONObject jsonObject = null;
 
-//            try {
-//                jsonObject = new JSONObject(result);
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            JSONArray jsonArray = jsonObject.optJSONArray("data");
             users = getListOfJsonObject(result);
             userAdapter = new UserAdapter(MainActivity.this,users);
             Log.d(TAG, "setting adapter");
