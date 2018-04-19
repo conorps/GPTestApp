@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_extra_big">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_user_title"
+        android:textColor="#000000"
+        android:textSize="@dimen/font_headline" />
+
+    <EditText
+        android:id="@+id/edittext_add_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_big"
+        android:hint="@string/name"
+        android:textSize="@dimen/font_subheading"
+        android:textColor="@color/black"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/edittext_add_user_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_big"
+        android:hint="@string/job"
+        android:textSize="@dimen/font_subheading"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/button_add_user_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/margin_big"/>
+
+</LinearLayout>

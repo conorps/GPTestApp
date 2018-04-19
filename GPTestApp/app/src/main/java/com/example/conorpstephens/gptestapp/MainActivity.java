@@ -1,6 +1,7 @@
 package com.example.conorpstephens.gptestapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private ArrayList<JSONObject> users;
@@ -36,8 +38,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initUI();
         initRecyclerView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         new GetUsers().execute();
+    }
+
+    private void initUI(){
+        findViewById(R.id.fab).setOnClickListener(this);
     }
 
     /**
@@ -52,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
         llm.setOrientation(OrientationHelper.VERTICAL);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(llm);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fab:
+                startActivity(new Intent(this,AddUserActivity.class));
+                break;
+        }
     }
 
     /**
@@ -93,16 +114,16 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Create progress dialog
-            mProgressDialog = new ProgressDialog(MainActivity.this);
-            // Set your progress dialog Title
-            mProgressDialog.setTitle("Downloading");
-            // Set your progress dialog Message
-            mProgressDialog.setMessage("Please Wait!");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            // Show progress dialog
-            mProgressDialog.show();
+//            mProgressDialog = new ProgressDialog(MainActivity.this);
+//            // Set your progress dialog Title
+//            mProgressDialog.setTitle("Downloading");
+//            // Set your progress dialog Message
+//            mProgressDialog.setMessage("Please Wait!");
+//            mProgressDialog.setIndeterminate(false);
+//            mProgressDialog.setCancelable(false);
+//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            // Show progress dialog
+//            mProgressDialog.show();
         }
 
 
@@ -175,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(JSONArray result) {
-            mProgressDialog.dismiss();
+            //mProgressDialog.dismiss();
             Log.d(TAG, "Result: " + result);
 
             JSONObject jsonObject = null;

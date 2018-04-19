@@ -1,37 +1,24 @@
 package com.example.conorpstephens.gptestapp;
 
-import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
+
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by conor.p.stephens@ibm.com on 4/18/18.
